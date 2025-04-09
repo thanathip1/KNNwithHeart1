@@ -12,7 +12,7 @@ with col1:
    st.image("./img/5.jpg")
 
 with col2:
-   st.image("./img/1.png")
+   st.image("./img/1.jpg")
 
 html_7 = """
 <div style="background-color:#fec8ff;padding:15px;border-radius:15px 15px 15px 15px;border-style:'solid';border-color:black">
@@ -70,6 +70,6 @@ if st.button("ทำนายผล"):
     st.image("./img/2.png")
    else:
     st.write("ไม่เป็นโรคหัวใจ")
-    st.image("./img/1.png")
+    st.image("./img/1.jpg")
 else:
     st.write("ไม่ทำนาย")
