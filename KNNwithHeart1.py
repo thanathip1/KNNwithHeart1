@@ -1,76 +1,77 @@
 from sklearn.neighbors import KNeighborsClassifier
 import streamlit as st
 import pandas as pd
-import numpy as np
 import seaborn as sns
+import numpy as np
 import matplotlib.pyplot as plt
 
-st.header('💓 โปรแกรมวิเคราะห์ข้อมูลสุขภาพหัวใจ')
-st.title('🔍 Heart Data Classification (KNN)')
+st.title('การตรวจสอบโรคหัวใจด้วยเทคนิค Machine Learning 💀💀💀')
+col1,col2 = st.columns(2)
 
-# โหลดข้อมูล
-dt = pd.read_csv("/mnt/data/Heart3.csv")
+with col1:
+   st.header("ไม่เป็น")
+   st.image("./img/2.jpg")
 
-# ส่วนแสดงข้อมูล
+with col2:
+   st.header("เป็น")
+   st.image("./img/1.jpg")
+
 html_7 = """
-<div style="background-color:#f2b5d4;padding:15px;border-radius:15px 15px 15px 15px;border-style:'solid';border-color:black">
-<center><h5>ข้อมูลสุขภาพหัวใจเพื่อการวิเคราะห์</h5></center>
+<div style="background-color:#fec8ff;padding:15px;border-radius:15px 15px 15px 15px;border-style:'solid';border-color:black">
+<center><h3 style="color:black;">ข้อมูลโรคหัวใจสำหรับทำนาย</h3></center>
 </div>
 """
 st.markdown(html_7, unsafe_allow_html=True)
 st.markdown("")
 st.markdown("")
 
-st.subheader("📌 ตัวอย่างข้อมูล 10 แถวแรก")
+
+st.subheader("ข้อมูลส่วนแรก 10 แถว")
+dt = pd.read_csv("./data/Heart.csv")
 st.write(dt.head(10))
-st.subheader("📌 ตัวอย่างข้อมูล 10 แถวสุดท้าย")
+st.subheader("ข้อมูลส่วนสุดท้าย 10 แถว")
 st.write(dt.tail(10))
 
-# สถิติพื้นฐาน
-st.subheader("📈 สถิติพื้นฐานของข้อมูล")
-st.write(dt.describe())
-
-# เลือกฟีเจอร์เพื่อดูการกระจายข้อมูล
-st.subheader("📊 เลือกฟีเจอร์เพื่อดูการกระจายข้อมูล (Boxplot)")
-target_col = 'target'  # ปรับให้ตรงกับไฟล์ถ้าชื่อไม่ตรง
-feature = st.selectbox("เลือกฟีเจอร์", dt.columns.drop(target_col))
-
-fig, ax = plt.subplots()
-sns.boxplot(data=dt, x=target_col, y=feature, ax=ax)
-st.pyplot(fig)
-
-# pairplot
-if st.checkbox("🔎 แสดง Pairplot (อาจใช้เวลาโหลดเล็กน้อย)"):
-    fig2 = sns.pairplot(dt, hue=target_col)
-    st.pyplot(fig2)
-
-# ทำนายด้วย KNN
 html_8 = """
-<div style="background-color:#91e3e9;padding:15px;border-radius:15px 15px 15px 15px;border-style:'solid';border-color:black">
-<center><h5>ทำนายข้อมูลสุขภาพ</h5></center>
+<div style="background-color:#6BD5DA;padding:15px;border-radius:15px 15px 15px 15px;border-style:'solid';border-color:black">
+<center><h3 style="color:black;">ทำนายข้อมูล</h3></center>
 </div>
 """
+st.markdown("")
+st.markdown("")
 st.markdown(html_8, unsafe_allow_html=True)
+st.markdown("")
 
-# แสดง input เฉพาะ 4 ฟีเจอร์แรกเพื่อความง่าย (สามารถเปลี่ยนได้)
-feature_names = dt.columns.drop(target_col).tolist()
-input_vals = []
+Age = st.number_input("กรุณาเลือกข้อมูล Age")
+Sex = st.number_input("กรุณาเลือกข้อมูล Sex")
+ChestPainType = st.number_input("กรุณาเลือกข้อมูล ChestPainType")
+RestingBP = st.number_input("กรุณาเลือกข้อมูล RestingBP")
+Cholesterol = st.number_input("กรุณาเลือกข้อมูล Cholesterol")
+FastingBS = st.number_input("กรุณาเลือกข้อมูล FastingBS")
+RestingECG = st.number_input("กรุณาเลือกข้อมูล RestingECG")
+MaxHR = st.number_input("กรุณาเลือกข้อมูล MaxHR")
+ExerciseAngina = st.number_input("กรุณาเลือกข้อมูล ExerciseAngina")
+Oldpeak = st.number_input("กรุณาเลือกข้อมูล Oldpeak")
+ST_Slope = st.number_input("กรุณาเลือกข้อมูล ST_Slope")
 
-st.write("กรุณาเลือกค่าต่าง ๆ สำหรับทำนาย:")
+if st.button("ทำนายผล"):
+    #st.write("ทำนาย")
+   X = dt.drop('HeartDisease', axis=1)
+   y = dt.HeartDisease
 
-for f in feature_names[:4]:  # ใช้แค่ 4 ฟีเจอร์แรก
-    val = st.number_input(f"ป้อนค่า {f}", float(dt[f].min()), float(dt[f].max()), float(dt[f].mean()))
-    input_vals.append(val)
+   Knn_model = KNeighborsClassifier(n_neighbors=3)
+   Knn_model.fit(X, y)  
+    
+   x_input = np.array([[Age,Sex,ChestPainType,RestingBP,Cholesterol,FastingBS,RestingECG,MaxHR,ExerciseAngina,Oldpeak,ST_Slope]])
+   st.write(Knn_model.predict(x_input))
+   
+   out=Knn_model.predict(x_input)
 
-if st.button("🧠 ทำนายผล"):
-    X = dt[feature_names]
-    y = dt[target_col]
-
-    model = KNeighborsClassifier(n_neighbors=3)
-    model.fit(X, y)
-
-    prediction = model.predict([input_vals])
-    st.success(f"✅ ผลการทำนาย: {prediction[0]}")
+   if out[0] == '1':
+    st.write("คุณรอด")
+    st.image("./img/2.jpg")
+   else:
+    st.write("แกไม่รอดแน่")
+    st.image("./img/1.jpg")
 else:
-    st.info("กรุณาใส่ข้อมูลและกดปุ่มเพื่อทำนาย")
-
+    st.write("ไม่ทำนาย")
