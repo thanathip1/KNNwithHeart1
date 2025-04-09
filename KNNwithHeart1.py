@@ -5,7 +5,7 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 
-st.title('การตรวจสอบโรคหัวใจด้วยเทคนิค Machine Learning 💀💀💀')
+st.title('การตรวจสอบโรคหัวใจด้วยเทคนิค Machine Learning')
 col1,col2 = st.columns(2)
 
 with col1:
