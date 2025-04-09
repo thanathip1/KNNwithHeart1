@@ -13,9 +13,11 @@ st.title('🫀 ตรวจสอบโรคหัวใจด้วย Machine
 # รูปภาพหัวเรื่อง
 col1, col2 = st.columns(2)
 with col1:
-    st.image("./img/5.jpg", use_column_width=True)
+    st.image("./img/5.png", use_container_width=True)
+
 with col2:
-    st.image("./img/1.png", use_column_width=True)
+    st.image("./img/1.png", use_container_width=True)
+
 
 # โหลดข้อมูล
 dt = pd.read_csv("./data/Heart3.csv")
@@ -83,13 +85,13 @@ if st.button("🎯 ทำนายผล"):
         <h2 style="color:white;">⚠️ ตรวจพบความเสี่ยง! คุณอาจเป็นโรคหัวใจ</h2>
         </div>
         """, unsafe_allow_html=True)
-        st.image("./img/2.png", use_column_width=True)
+        st.image("./img/2.png", use_container_width=True)
     else:
         st.markdown("""
         <div style="background-color:#a3ffd6;padding:20px;border-radius:10px;text-align:center;">
         <h2 style="color:#064e3b;">✅ ไม่พบความเสี่ยงของโรคหัวใจ</h2>
         </div>
         """, unsafe_allow_html=True)
-        st.image("./img/1.png", use_column_width=True)
+        st.imagest.image("./img/1.png", use_container_width=True)
 else:
     st.info("📝 กรอกข้อมูลให้ครบแล้วกดปุ่มเพื่อทำนาย")
