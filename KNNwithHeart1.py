@@ -9,11 +9,9 @@ st.title('การตรวจสอบโรคหัวใจด้วยเ�
 col1,col2 = st.columns(2)
 
 with col1:
-   st.header("ไม่เป็น")
-   st.image("./img/2.png")
+   st.image("./img/5.jpg")
 
 with col2:
-   st.header("เป็น")
    st.image("./img/1.png")
 
 html_7 = """
@@ -68,10 +66,10 @@ if st.button("ทำนายผล"):
    out=Knn_model.predict(x_input)
 
    if out[0] == '1':
-    st.write("คุณรอด")
+    st.write("เป็นโรคหัวใจ")
     st.image("./img/2.png")
    else:
-    st.write("แกไม่รอดแน่")
+    st.write("ไม่เป็นโรคหัวใจ")
     st.image("./img/1.png")
 else:
     st.write("ไม่ทำนาย")
